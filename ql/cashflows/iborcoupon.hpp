@@ -103,7 +103,7 @@ namespace QuantLib {
                                     const Calendar&,
                                     BusinessDayConvention,
                                     bool endOfMonth = false);
-        IborLeg& useIndexedCoupon(const bool);
+        IborLeg& useIndexedCoupon(bool);
         operator Leg() const;
 
       private:
