@@ -165,6 +165,8 @@ namespace QuantLib {
         */
         bool allowsNotificationPassThrough() const { return allowsNotificationPassThrough_; }
 
+        Size numberOfObservables() const { return observables_.size(); }
+
       protected:
         bool allowsNotificationPassThrough_ = false;
 
@@ -250,9 +252,11 @@ namespace QuantLib {
                     return std::make_pair(observables_.end(), false);
                 }
             }
-            ObservableSettings::instance().incrementRegisteredObservables();
             h->registerObserver(this);
-            return observables_.insert(h);
+            auto n = observables_.insert(h);
+            if(n.second)
+                ObservableSettings::instance().incrementRegisteredObservables();
+            return n;
         }
         return std::make_pair(observables_.end(), false);
     }
